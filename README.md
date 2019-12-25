@@ -8,4 +8,4 @@ $ python app.py
 
 ### Play
 
-Open http://localhost:5000 and have fun. :smiley:
+Open http://localhost:5000 and have fun :p
