@@ -1,6 +1,6 @@
 ### Run the app
 
-Python 3.5+ are supported and tested.
+Python 2.7 and 3.5+ are supported and tested.
 
 ```
 $ python app.py
