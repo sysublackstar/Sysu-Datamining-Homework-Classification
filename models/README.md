@@ -1,1 +1,1 @@
-如果想使用自己的模型，把模型放在这个目录。
+If you want to use your own model, put your model into this fold.
