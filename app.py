@@ -14,7 +14,7 @@ from keras.models import load_model
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  #use CPU for prediction if your GPU doesn't work caused by a cudnn error
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  #Use CPU for prediction if your GPU doesn't work caused by a cudnn error
 
 app = Flask(__name__)
 
@@ -31,7 +31,6 @@ def model_predict(img_path, model):
 
 @app.route('/', methods=['GET'])
 def index():
-    # Main page
     return render_template('index.html')
 
 
