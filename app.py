@@ -10,22 +10,24 @@ from keras.applications.imagenet_utils import preprocess_input, decode_predictio
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.models import load_model
-
+import tensorflow as tf
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  #Use CPU for prediction if your GPU doesn't work caused by a cudnn error
 
 app = Flask(__name__)
-
-model = load_model('models/my_model_transfer_nasnet.h5')
+graph = tf.get_default_graph()
+model = load_model('models/cnn.h5')
 
 def model_predict(img_path, model):
-    img = image.load_img(img_path, target_size=(224, 224))
+    img = image.load_img(img_path, target_size=(64, 64))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
-    preds = model.predict(x)
+    global graph
+    with graph.as_default():
+        preds = model.predict(x)
     return preds
 
 
@@ -43,7 +45,6 @@ def upload():
         file_path = os.path.join(
             basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-
         preds = model_predict(file_path, model)
         
         if preds[0][0] < 0.5:
